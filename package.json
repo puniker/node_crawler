@@ -1,0 +1,16 @@
+{
+  "name": "node_crawler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "fullSiteCrawler": "node scripts/fullSiteCrawler.js",
+    "getImages": "node scripts/getImages.js"
+  },
+  "keywords": [],
+  "author": "Iker Sastre",
+  "license": "ISC",
+  "dependencies": {
+    "crawler": "^1.3.0"
+  }
+}
