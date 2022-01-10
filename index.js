@@ -1,5 +1,6 @@
 const Crawler = require("crawler")
-const {PrintErrorMsg, PrintSuccessMsg} = require('../console')
+const {PrintErrorMsg, PrintSuccessMsg} = require('./console')
+const fs = require("fs")
 
 const initUrl = process.env.npm_config_url
 
@@ -9,9 +10,10 @@ function addUrlToQueue ( url ) {
 }
 const c = new Crawler({
     maxConnections: 100,
-    // This will be called for each crawled page
+
     callback: (error, res, done) => {
         if (error) {
+            console.log( res.options.uri)
             PrintErrorMsg(error)
         } else {
             const url = res.options.uri
@@ -19,6 +21,7 @@ const c = new Crawler({
                 PrintSuccessMsg(url)
             } else {
                 PrintErrorMsg(url, res.statusCode)
+                WriteErrorFile( `${url} => ${res.statusCode}` )
             }
             if ( url.startsWith(initUrl) ) {
                 let $ = res.$
@@ -47,6 +50,18 @@ const c = new Crawler({
         
     }
 })
+let now = new Date()
+const errorFile = `logs/errors_${now}.log`
+
 if (initUrl) {
+    fs.appendFile(errorFile, '', () => { console.log('Fichero de errores inicializado') })
     c.queue( [initUrl] )
+}
+
+const WriteErrorFile = (msg) => { 
+    console.log(msg)
+    fs.appendFile(errorFile, msg + '\r\n' , () => {
+
+    })
+
 }

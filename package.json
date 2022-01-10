@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "fullSiteCrawler": "node scripts/fullSiteCrawler.js",
+    "fullSiteCrawler": "node index.js",
     "getImages": "node scripts/getImages.js"
   },
   "keywords": [],
